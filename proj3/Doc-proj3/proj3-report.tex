@@ -1,0 +1,233 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{natbib}
+\usepackage{authblk}
+\usepackage{url}
+\usepackage[section]{placeins}
+\usepackage{wrapfig, framed}
+
+\title{\textbf{Project 3 Report : Compare classifiers in scikit-learn library}}
+\author{Sajal Kumar}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Implementation details on parameters}
+
+My implementation uses all 6 methods on their default setting except the following general parameters that could be changed:
+
+\begin{itemize}
+\item \texttt{random\_state} : Random seed (set to 1 by default).
+\item \texttt{max\_iter} : maximum number of iterations for methods using gradient descent (set to 10 by default)
+\item \texttt{n\_jobs} : Number of parallel threads allowed (set to 4 by default).
+\end{itemize}
+
+My implementation also allows changes to the following classifier specific parameters:
+
+\begin{itemize}
+\item Decision Tree
+\begin{itemize}
+\item \texttt{min\_samples\_split} denoted by \texttt{dt\_min\_split} (set to 10 by default).
+\end{itemize}
+\item Linear Support Vector Machine
+\begin{itemize}
+\item \texttt{penalty} denoted by \texttt{lsvm\_penalty} (set to `l2' by default).
+\item \texttt{C} denoted by \texttt{lsvm\_c} (set to 0.05 by default).
+\end{itemize}
+\item Non Linear Support Vector Machine
+\begin{itemize}
+\item \texttt{C} denoted by \texttt{nlsvm\_c} (set to 0.05 by default).
+\item \texttt{gamma} denoted by \texttt{nlsvm\_gma} (set to 'auto' by default).
+\end{itemize}
+\item Perceptron
+\begin{itemize}
+\item \texttt{penalty} denoted by \texttt{ptron\_penalty} (set to `l2' by default).
+\item \texttt{alpha} denoted by \texttt{ptron\_c} (set to 0.05 by default).
+\item \texttt{eta0} denoted by \texttt{ptron\_eta} (set to 0.001 by default).
+\end{itemize}
+\item Logistic Regression
+\begin{itemize}
+\item \texttt{penalty} denoted by \texttt{logres\_penalty} (set to `l2' by default).
+\item \texttt{C} denoted by \texttt{logres\_c} (set to 0.05 by default).
+\end{itemize}
+\item KNN classifier
+\begin{itemize}
+\item \texttt{n\_neighbors} denoted by \texttt{knn\_k} (set to 3 by default).
+\item \texttt{algorithm} denoted by \texttt{knn\_algo} (set to 'kd-tree' by default).
+\end{itemize}
+\end{itemize}
+
+Apart from the above mentioned parameter some other classifier parameters were also changed but were not provided as a parameter for the user:
+
+\begin{itemize}
+\item Decision Tree
+\begin{itemize}
+\item \texttt{min\_samples\_leaf} was set to 5 (commonly used in significance testing).
+\end{itemize}
+\item Linear Support Vector Machine
+\begin{itemize}
+\item \texttt{fit\_intercept} set to `False' (since the data was properly scaled and centralized).
+\end{itemize}
+\item Perceptron
+\begin{itemize}
+\item \texttt{fit\_intercept} set to `False' (since the data was properly scaled and centralized).
+\end{itemize}
+\item Logistic Regression
+\begin{itemize}
+\item \texttt{fit\_intercept} set to `False' (since the data was properly scaled and centralized).
+\item \texttt{solver} set to `sag' (faster version of stochastic gradient descent).
+\item \texttt{multi\_class} set to `multinomial' (Reason explained later). 
+\end{itemize}
+\end{itemize}
+
+Hence the above represents the `standard' setting for all classifier when no parameter is changed. Next I will present results on `Digits' and 'REALDISP Activitiy Recognition' data-sets using the `standard' setting and then discuss and show the difference in results on the `Digits' data-set with alternate configuration.
+
+\section*{Performance on Digits data-set}
+
+\begin{table}[!hptb]
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Info} & \textbf{Dec. Tree} & \textbf{Lin. SVM} & \textbf{N-lin. SVM} & \textbf{Perc.} & \textbf{Logi. Reg.} & \textbf{KNN class.} \\\hline
+\textbf{runtime} & 0.011 & 0.036 &	0.021 &	0.15 & 0.10 & 0.004 \\
+\textbf{acc. test} & 83 & 88 & 92 & 72 & 95 & 98 \\
+\textbf{acc. train} & 92 & 92 & 94 & 75 & 97 & 99 \\\hline
+\end{tabular}
+\caption{Result on `Digits' data-set with `standard' configuration of 6 classifiers.}
+\end{table}
+
+Table~1 shows the runtime (in seconds), accuracy on testing data (in \%) and accuracy on training (in \%) for `Digits' data-set using the `standard' configuration on 6 classifiers Dec. Tree (Decision Tree), Lin. SVM (Linear SVM), N-lin. SVM (Non-Linear SVM), Perc. (Perceptron), Logi. Reg. (Logistic Regression) and KNN class. (KNN classification). The data-set was scaled using the `StandardScaler' method from sklearn. 70\% of the data was randomly partitioned for training and the rest 30\% was used for testing. Stratified partitioning was used. Logistic regression and KNN classifiers work very well followed by Non-Linear SVM, Linear SVM and Decision Tree. Perceptron performed the worst.
+
+\section*{Performance on REALDISP data-set}
+
+Since REALDISP is a huge data-set wherein evaluating all log files is very impractical on a personal laptop (and the project description does not mandate the utilization of the entire REALDISP dataset),  I decided to use the `ideal' log files of 4 subjects (3, 4, 6 and 7). Since this data-set is still huge (more than 500,000 samples), a large \texttt{max\_iter} would be bad. Thus, we used the `standard' \texttt{max\_iter} = 10 for this analysis. Surely, Linear SVM, Non-Linear SVM, Perceptron and Logistic Regression would suffer because of that but according to the results, Linear SVM and Perceptron take the biggest hit. This data-set is a true test of run-time.
+
+\begin{table}[!hptb]
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Info} & \textbf{Dec. Tree} & \textbf{Lin. SVM} & \textbf{N-lin. SVM} & \textbf{Perc.} & \textbf{Logi. Reg.} & \textbf{KNN class.} \\\hline
+\textbf{runtime} & 216 & 62 & 32 & 12 & 32 & 4 \\
+\textbf{acc. test} & 98 & 28 & 65 & 37 & 81 & 99 \\
+\textbf{acc. train} & 99 & 28 & 65 & 37 & 81 & 99 \\\hline
+\end{tabular}
+\caption{Result on `REALDISP' data-set with `standard' configuration of 6 classifiers.}
+\end{table}
+
+Table~2 shows the runtime (in seconds), accuracy on testing data (in \%) and accuracy on training (in \%) for `Digits' data-set using the `standard' configuration on 6 classifiers Dec. Tree (Decision Tree), Lin. SVM (Linear SVM), N-lin. SVM (Non-Linear SVM), Perc. (Perceptron), Logi. Reg. (Logistic Regression) and KNN class. (KNN classification). The data-set was scaled using the `StandardScaler' method from sklearn. 70\% of the data was randomly partitioned for training and the rest 30\% was used for testing. Stratified partitioning was used. Decision Tree and KNN classifiers work very well followed by Logistic Regression and Non-Linear SVM. Linear SVM and Perceptron performed the worst. It clearly seems like KNN classifier is very powerful, being fast and effective.
+
+\section*{A more comprehensive evaluation of classifiers}
+
+In this section we would discuss and show changes in performance when certain parameters were tweaked. We are using 'Digits' data-set. We only tweaked parameters for those classifier that did not perform well, that is, they reported an accuracy $\leq$ 90, in `standard' configuration. Thus, we only considered Perceptron, Linear SVM and Decision Tree classifiers. 
+
+\begin{itemize}
+\item Decision Tree
+\begin{itemize}
+\item \texttt{min\_samples\_split} : The following table shows the change in results at 4 different values of \texttt{min\_samples\_split}
+\begin{table}[!hptb]
+\centering
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{values $\to$} & \textbf{10} & \textbf{40} & \textbf{50} & \textbf{100} \\\hline
+\textbf{runtime} & 0.011 & 0.010 & 0.010 & 0.009 \\
+\textbf{acc. test} & 83 & 80 & 80 & 77 \\
+\textbf{acc. train} & 92 & 86 & 86 & 79 \\\hline
+\end{tabular}
+\caption{Change in Decision tree result with changing \texttt{min\_samples\_split}}
+\end{table}
+The results in Table~3 are expected, increasing the \texttt{min\_samples\_split} decreases the runtime (slightly) and degrades the performance because the pre-pruning might be happening pre-maturely, leading to under-fitting.
+\end{itemize}
+
+\item Linear Support Vector Machine
+\begin{itemize}
+\item \texttt{C} : The following table shows the change in results at 4 different values of \texttt{C}, we do not show runtime as no visible changes were noticed.
+\begin{table}[!hptb]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{values $\to$} & \textbf{0.05} & \textbf{0.01} & \textbf{1} \\\hline
+\textbf{acc. test} & 88 & 91 & 83 \\
+\textbf{acc. train} & 92 & 93 & 87 \\\hline
+\end{tabular}
+\caption{Change in Linear SVM result with changing \texttt{C}}
+\end{table}
+The results in Table~4 are expected, increasing \texttt{C} decreases accuracy as we are moving towards under-fitting, whereas reducing it improves accuracy.
+\end{itemize}
+
+\item Perceptron
+Perceptron's bad performance could've been due to low number of max iterations and thus, I increased that number to 50 and sure enough the performance improved. The next set of results all have \texttt{max\_iter} set to 50.
+
+\begin{itemize}
+\item \texttt{penalty} : The following table shows the change in results at 2 different values of \texttt{penalty}, we do not show runtime as no visible changes were noticed.
+\begin{table}[!hptb]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{values $\to$} & \textbf{l2} & \textbf{l1} \\\hline
+\textbf{acc. test} & 81 & 32 \\
+\textbf{acc. train} & 81 & 32 \\\hline
+\end{tabular}
+\caption{Change in Perceptron results with changing \texttt{penalty}}
+\end{table}
+The results in Table~5 are interesting as I would have expected similar (or slightly worse) performance between the two penalty scheme, however, a big drop in performance can be seen.
+
+\item \texttt{alpha} : The following table shows the change in results at 3 different values of \texttt{alpha}, we do not show runtime as no visible changes were noticed. `l2' penalty term was being used.
+\begin{table}[!hptb]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{values $\to$} & \textbf{0.05} & \textbf{0.01} & \textbf{1} \\\hline
+\textbf{acc. test} & 81 & 77 & 82 \\
+\textbf{acc. train} & 81 & 81 & 82 \\\hline
+\end{tabular}
+\caption{Change in Perceptron results with changing \texttt{alpha}}
+\end{table}
+The results in Table~6 are again surprising as lowering the \texttt{alpha} degrades the result while increasing it improves the result.
+
+\item \texttt{eta0} : The following table shows the change in results at 3 different values of \texttt{eta0}, we do not show runtime as no visible changes were noticed. \texttt{penalty} was set to `l2' and \texttt{alpha} to 1.
+\begin{table}[!hptb]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{values $\to$} & \textbf{0.001} & \textbf{0.01} & \textbf{0.0001} \\\hline
+\textbf{acc. test} & 81 & 77 & 79 \\
+\textbf{acc. train} & 81 & 78 & 81 \\\hline
+\end{tabular}
+\caption{Change in Perceptron results with changing \texttt{eta0}}
+\end{table}
+The results in Table~7 are expected, increasing \texttt{eta0} degrades performance while increasing it also degrades performance and thus 0.01 seems to be a good value.
+\end{itemize}
+\end{itemize}
+
+Additionally, setting \texttt{multi\_class} as `ovr' (one versus rest) in logistic regression made it very slow for the REALDISP data-set. It makes sense as the there are 34 class-labels in the REALDISP data-set which means the 34 models (with more than 500,000 samples) have to be made. The reason for Logistic regression's slow behavior is the fact that it uses stochastic gradient descent that works on samples, making it very slow. Thus, we set the  \texttt{multi\_class} to `multinomial' for Logistic regression and it worked fine.
+
+I also tried to see what happens in I increased the `K' for KNN classifier and the results were expected, increasing the `K' from 3 to 10 degraded the performance on test data from 98 to 97. Increasing `K' to 20 degraded the performance on test data from 98 to 96. This result was inline with what Dr. Cao mentioned in the class about smaller `K' performing better. 
+
+\section*{Understanding pruning strategies in DecisionTreeClassifier}
+
+DecisionTreeClassifier is an optimized implementation of the CART algorithm. Sklearn currently does not support any post-pruning strategies. However, it provides several options for pre-pruning in the form of parameters, some of which are:
+\begin{itemize}
+\item \texttt{max\_depth} : The maximum depth of the tree.
+\item \texttt{min\_samples\_split} : The minimum number of samples required to split an internal node.
+\item \texttt{min\_samples\_leaf} : The minimum number of samples required to be at a leaf node.
+\item \texttt{min\_impurity\_decrease} : A node will be split if this split induces a decrease of the impurity greater than or equal to this value.
+\item \texttt{min\_weight\_fraction\_leaf } : The minimum weighted fraction of the sum total of weights (of all the input samples) required to be at a leaf node.
+\end{itemize}
+
+In the \textit{sklearn-Github} repository for tree classification -- \url{https://github.com/scikit-learn/scikit-learn/tree/} :  
+\begin{itemize}
+\item \texttt{max\_depth} is utilized in \texttt{\_tree.pyx} at line number 223 where, if the current depth exceeds texttt{max\_depth} then the node is annotated as a leaf node.
+
+\item \texttt{min\_samples\_split} is utilized in \texttt{\_tree.pyx} at line number 224 where, if the number of samples at the current node is less than texttt{max\_depth} then the node is annotated as a leaf node.
+
+\item \texttt{min\_samples\_leaf} is utilized in \texttt{\_tree.pyx} at line number 225 where, if the number of samples at the current node is less than $2 *$ \texttt{min\_samples\_leaf} then the node is annotated as a leaf node.
+
+\item \texttt{min\_impurity\_decrease} is utilized at several places in \texttt{\_tree.pyx}, one instance is at line number 241 where, if the improvement gained by splitting the current node, added with \texttt{EPSILON} (machine limits for floating point types), is less than \texttt{min\_impurity\_decrease} then the node is annotated as a leaf node.
+
+\item \texttt{min\_weight\_fraction\_leaf } is first utilized in \texttt{tree.py} at line number 272 (or 275 depending on the condition) to compute \texttt{min\_weight\_leaf} = \texttt{min\_weight\_fraction\_leaf} $* n\_samples$ (or \texttt{min\_weight\_fraction\_leaf} $* sum(sample\_weight)$). \texttt{min\_weight\_leaf} is then used at line 226 in \texttt{\_tree.pyx} where, if the sum of the weighted samples is less than $2 *$ \texttt{min\_weight\_leaf} then the node is annotated as a leaf node. Weighting the samples is a specially useful when the class-labels are unbalanced in which case \texttt{min\_weight\_fraction\_leaf} will make the pre-pruning less biased toward dominant classes.
+\end{itemize}
+
+\end{document}
