@@ -1,0 +1,76 @@
+################################################################################
+README
+try ‘python3 main.py —help’ to get a detailed explanation of all parameters (also given below) 
+################################################################################
+
+usage: main.py [-h] [-seed SEED] [-n_jobs N_JOBS] [-max_iter MAX_ITER]
+               [-dt_min_split DT_MIN_SPLIT] [-lsvm_penalty LSVM_PENALTY]
+               [-lsvm_c LSVM_C] [-nlsvm_c NLSVM_C] [-nlsvm_gma NLSVM_GMA]
+               [-ptron_penalty PTRON_PENALTY] [-ptron_c PTRON_C]
+               [-ptron_eta PTRON_ETA] [-logres_penalty LOGRES_PENALTY]
+               [-logres_c LOGRES_C] [-knn_k KNN_K] [-knn_algo KNN_ALGO]
+               [-data_to_analyze DATA_TO_ANALYZE] [-data_path DATA_PATH]
+               [-data_name DATA_NAME]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -seed SEED            int; Random seed.
+  -n_jobs N_JOBS        int; Number of parallel threads to be used.
+  -max_iter MAX_ITER    int; Maximum number of epochs for Perceptron and SVM
+                        classifiers.
+  -dt_min_split DT_MIN_SPLIT
+                        int; Decision Tree : The minimum number of samples
+                        required to split an internal node. (default = 10)
+  -lsvm_penalty LSVM_PENALTY
+                        string; Linear SVM : Penalty of l1 or l2 (default =
+                        l2)
+  -lsvm_c LSVM_C        float; Linear SVM : Penalty parameter C of the error
+                        term (default = 0.05)
+  -nlsvm_c NLSVM_C      float; Non-Linear SVM : Penalty parameter C of the
+                        error term (default = 0.05)
+  -nlsvm_gma NLSVM_GMA  float; Non-Linear SVM : Kernel coefficient (default =
+                        1/n_attributes)
+  -ptron_penalty PTRON_PENALTY
+                        string; Perceptron : Penalty of l1, l2 or elasticnet
+                        (default = l2)
+  -ptron_c PTRON_C      float; Perceptron : Multiplies the penalty term
+                        (default = 0.05)
+  -ptron_eta PTRON_ETA  double; Perceptron : Constant by which the updates are
+                        multiplied (default = 0.001)
+  -logres_penalty LOGRES_PENALTY
+                        string; Logistic Reg. : Penalty of l1 or l2 (default =
+                        l2)
+  -logres_c LOGRES_C    float; Logistic Reg. : Penalty parameter C of the
+                        error term (default = 0.05)
+  -knn_k KNN_K          int; KNN Class. : Number of neighbors to use (default
+                        = 3)
+  -knn_algo KNN_ALGO    string; KNN Class. : Chose from auto, ball_tree,
+                        kd_tree, brute (default = kd_tree)
+  -data_to_analyze DATA_TO_ANALYZE
+                        int; Proj 3 evaluates on 2 datasets, 1) digits and 2)
+                        activityrecognition, if a third data set has to be
+                        evaluated pleaseset this option to 3 and provide a
+                        -data_path and -data_name. Ifoption 2 is being used,
+                        please supply a path to all individualfiles to merge.
+                        Option 2 can take forever to run so it is suggested to
+                        use at-most 5 files from the data set.[*]
+  -data_path DATA_PATH  Path to the data file; only valid if
+                        -data_to_analyze=3. The last column will be treated as
+                        class labels and the rest as attributes.
+  -data_name DATA_NAME  Name of the data-set being evaluated; only valid if
+                        -data_to_analyze=3
+
+
+################################################################################
+
+Some examples:
+
+python3 main.py -data_to_analyze=1 ; evaluates the ‘Digit’ data-set on standard setting.
+
+python3 main.py -data_to_analyze=1 -max_iter=50 -dt_min_split=50 -lsvm_c=0.01 -ptron_penalty=l1 -ptron_c=0.01 ; evaluates the ‘Digit’ data-set with an alternative configuration.
+
+python3 main.py -data_to_analyze=2 -data_path=/Users/sajalkumar/Dropbox/CS519-Applied-ML-1/PROJECT3/Data/ ; evaluates the ‘REALDISP’ data-set on standard setting with ‘-data_path’ pointing to the log files. This data requires merging and thus a -data_path (root) is required.
+
+python3 main.py -data_to_analyze=3 -data_path=/Users/sajalkumar/Dropbox/CS519-Applied-ML-1/project1/iris.csv -data_name=Iris ; evaluates an external data-set ‘Iris’ on standard setting. When using an external data-set, -data_path to the data set and -data_name is required.
+
+################################################################################
