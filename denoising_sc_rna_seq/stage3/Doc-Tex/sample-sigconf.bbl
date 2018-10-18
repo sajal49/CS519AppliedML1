@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{4}
+\begin{thebibliography}{6}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -69,6 +69,21 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Karaiskos, Wahle, Alles, Boltengagen, Ayoub,
+  Kipar, Kocks, Rajewsky, and Zinzen}{Karaiskos et~al\mbox{.}}{2017}]%
+        {karaiskos2017drosophila}
+\bibfield{author}{\bibinfo{person}{Nikos Karaiskos}, \bibinfo{person}{Philipp
+  Wahle}, \bibinfo{person}{Jonathan Alles}, \bibinfo{person}{Anastasiya
+  Boltengagen}, \bibinfo{person}{Salah Ayoub}, \bibinfo{person}{Claudia Kipar},
+  \bibinfo{person}{Christine Kocks}, \bibinfo{person}{Nikolaus Rajewsky}, {and}
+  \bibinfo{person}{Robert~P Zinzen}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{The Drosophila embryo at single-cell transcriptome
+  resolution}.
+\newblock \bibinfo{journal}{\emph{Science}} \bibinfo{volume}{358},
+  \bibinfo{number}{6360} (\bibinfo{year}{2017}), \bibinfo{pages}{194--199}.
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{Moon, Stanley, Burkhardt, van Dijk, Wolf, and
   Krishnaswamy}{Moon et~al\mbox{.}}{2017}]%
         {moon2017manifold}
@@ -80,6 +95,23 @@
   single-cell RNA-sequencing data}.
 \newblock \bibinfo{journal}{\emph{Current Opinion in Systems Biology}}
   (\bibinfo{year}{2017}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Puram, Tirosh, Parikh, Patel, Yizhak,
+  Gillespie, Rodman, Luo, Mroz, Emerick, et~al\mbox{.}}{Puram
+  et~al\mbox{.}}{2017}]%
+        {puram2017single}
+\bibfield{author}{\bibinfo{person}{Sidharth~V Puram}, \bibinfo{person}{Itay
+  Tirosh}, \bibinfo{person}{Anuraag~S Parikh}, \bibinfo{person}{Anoop~P Patel},
+  \bibinfo{person}{Keren Yizhak}, \bibinfo{person}{Shawn Gillespie},
+  \bibinfo{person}{Christopher Rodman}, \bibinfo{person}{Christina~L Luo},
+  \bibinfo{person}{Edmund~A Mroz}, \bibinfo{person}{Kevin~S Emerick},
+  {et~al\mbox{.}}} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Single-cell transcriptomic analysis of primary and
+  metastatic tumor ecosystems in head and neck cancer}.
+\newblock \bibinfo{journal}{\emph{Cell}} \bibinfo{volume}{171},
+  \bibinfo{number}{7} (\bibinfo{year}{2017}), \bibinfo{pages}{1611--1624}.
 \newblock
 
 
