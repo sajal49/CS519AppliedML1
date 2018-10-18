@@ -6,7 +6,7 @@ Put the data in denoising_sc_rna_seq/stage4/data/
 
 To run the current program:
 
-python3 main
+python3 main.py
 
 Note that the program would not work if 'hnc_data_non_cancer.csv' is not in data/ directory.
 
