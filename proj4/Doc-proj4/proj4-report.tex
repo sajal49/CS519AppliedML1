@@ -1,0 +1,193 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{natbib}
+\usepackage{authblk}
+\usepackage{url}
+\usepackage[section]{placeins}
+\usepackage{wrapfig, framed}
+
+\title{\textbf{Project 4 Report : Compare Compare regression methods}}
+\author{Sajal Kumar}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Implementation details on parameters}
+
+My implementation uses all 5 methods : Linear Regression, RANSAC Regression, Lasso Regression, Ridge Regression and Decision Tree Non-Linear Regression on their default setting except the following general parameters that could be changed:
+
+\begin{itemize}
+\item \texttt{random\_state} : Random seed (set to 1 by default).
+\item \texttt{max\_iter} : maximum number of iterations for methods using gradient descent (set to 50 by default)
+\item \texttt{n\_jobs} : Number of parallel threads allowed (set to 4 by default).
+\end{itemize}
+
+My implementation allows changes to the following regressor specific parameters:
+
+\begin{itemize}
+\item RANSAC Regressor
+\begin{itemize}
+\item \texttt{min\_samples} denoted by \texttt{min\_samples\_ransac} (set to 0.5 by default).
+\end{itemize}
+\item Lasso Regressor
+\begin{itemize}
+\item \texttt{alpha} denoted by \texttt{lambda\_l1} (set to 1 by default).
+\end{itemize}
+\item Ridge Regressor
+\begin{itemize}
+\item \texttt{alpha} denoted by \texttt{lambda\_l2} (set to 1 by default).
+\end{itemize}
+\item Decision Tree Non-Linear Regressor
+\begin{itemize}
+\item \texttt{min\_samples\_split} denoted by \texttt{min\_samples\_split} (set to 25 by default).
+\end{itemize}
+\end{itemize}
+
+Apart from the above mentioned parameter some other regressor parameters were changed but were not provided to the user:
+
+\begin{itemize}
+\item Linear Regressor, Lasso Regressor and Ridge Regressor
+\begin{itemize}
+\item \texttt{fit\_intercept} was set to `False' (since the data was properly scaled and centralized).
+\end{itemize}
+\end{itemize}
+
+The above represents the `standard' setting for all regression methods when no parameter is changed. 
+
+\subsection*{Linear Regression using normal equation solver}
+
+This is implemented as a separate class in the project. It requires no additional parameter. \texttt{-lin\_solver} activates it. See the \texttt{ReadME} file for examples.
+
+\section*{Performance on House Pricing Data-set}
+
+\begin{table}[!hptb]
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Info} & \textbf{Lin. Reg.} & \textbf{RANSAC} & \textbf{Lasso} & \textbf{Ridge} & \textbf{DT Reg.} & \textbf{Lin. Reg. Eqn.} \\\hline
+\textbf{runtime} & 0.0037 &	0.041 & 0.0006	 & 0.001 & 0.002 & 0.0032 \\
+\textbf{mse on test} & 0.23 & 0.24 &	1.09 & 0.23 & 0.14 &	0.23 \\
+\textbf{r2 on test} & 0.78 & 0.78 & -0.002 &	0.78 & 0.86 & 0.78 \\
+\textbf{mse on train} & 0.28 & 0.33 & 0.96 & 0.28 & 0.1 &	 0.28 \\
+\textbf{r2 on train} & 0.71 & 0.65 & -0.00045 & 0.71 & 0.89 & 0.71 \\\hline
+\end{tabular}
+\caption{Result on `Housing price' data-set with `standard' configuration of 6 regressors.}
+\end{table}
+
+Table~1 shows the runtime (in seconds), mse and r2 scores on testing and training data for `Housing price' data-set using the `standard' configuration on 6 regressors : Lin. Reg. (Linear Regression), RANSAC , Lasso, Ridge, DT Reg. (Decision Tree Non-Linear Regression) and Lin. Reg. Eqn. (Linear Regression using normal equations). The data-set was scaled using the `StandardScaler' method from sklearn. 70\% of the data was randomly partitioned for training and the rest 30\% was used for testing. All methods do well on the this data-set except Lasso. I believe it is because Lasso works well when the number of independent variable is big. However, In this data set there are only 13 features and thus Lasso is under-fitting at \texttt{alpha = 1}. The non-linear Decision Tree regressor worked the best for this data-set.
+
+\section*{Performance on California Energy Production Data-set}
+
+This data-set reported the amount of energy generated hourly by various renewable energy sources within the ISO grid in California. The only meaningful factor here is time and maybe some correlation between different energy sources, e.g : Hydro-electric energy generation can be affected by weather (precipitation to be exact) which will also affect both Solar and Wind energy. I removed timestamp from this data-set and introduced months. The rationale behind introducing the variable month was to introduce the context of seasons which can greatly affect Hydro, Wind and Solar energy. For Solar energy there were three features \textit{'SOLAR'}, \textit{'SOLAR PV'} and \textit{'SOLAR THERMAL'} that contained missing values. Interestingly, \textit{'SOLAR PV'} and \textit{'SOLAR THERMAL'} had missing values for rows where \textit{'SOLAR'} had valid entries and vice-versa. This could mean that the 3 features were related and thus I merged \textit{'SOLAR PV'} and \textit{'SOLAR THERMAL'} into \textit{'SOLAR'} by using the following equation when \textit{'SOLAR'} was missing value:
+
+\begin{equation}
+S[i] = \mu_{S} . \frac{SPV[i]}{\mu_{SPV}} + \mu_{S} . \frac{ST[i]}{\mu_{ST}}
+\end{equation}
+
+where $S[i]$ represents the $i$th instance of \textit{'SOLAR'} that was missing a value, $SPV[i]$ represents the $i$th instance of \textit{'SOLAR PV'},  $ST[i]$ represents the $i$th instance of \textit{'SOLAR THERMAL'}, $\mu_{S}$ represents mean of non-missing values in \textit{'SOLAR'}, $\mu_{SPV}$ represents the mean of non-missing values in \textit{'SOLAR PV'} and $\mu_{ST}$ represents the mean of non-missing values in \textit{'SOLAR THERMAL'}.
+
+I divided the data-set into two sub-datasets. One with \textit{'SOLAR'} as response and \textit{'MONTH'}, \textit{'Hours'} and  \textit{'SMALL HYDRO'} as features; another with \textit{'WIND TOTAL'} as response and \textit{'MONTH'},  \textit{'SOLAR'} and \textit{'SMALL HYDRO'} as features.
+
+\subsection*{Solar energy prediction}
+
+\begin{table}[!hptb]
+\centering
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Info} & \textbf{Lin. Reg.} & \textbf{RANSAC} & \textbf{Lasso} & \textbf{Ridge} & \textbf{DT Reg.}  \\\hline
+\textbf{runtime} & 0.0058 & 0.10 & 0.0028 & 0.0028 & 0.094 \\
+\textbf{mse on test} & 0.98 & 1.12 & 1.008 &	0.98 & 0.47 \\
+\textbf{r2 on test} & 0.023 &	-0.113 & -4.97E-07 & 0.023 & 0.53 \\
+\textbf{mse on train} & 0.97 & 1.11 &	0.99 & 0.97 & 0.31 \\
+\textbf{r2 on train} & 0.022 & -0.11 &	-9.24E-08 & 0.022 & 0.68 \\\hline
+\end{tabular}
+\caption{Result on `Solar Energy' data-set with `standard' configuration of 5 regressors.}
+\end{table}
+
+Table~2 shows the runtime (in seconds), mse and r2 scores on testing and training data for `Housing price' data-set using the `standard' configuration on 5 regressors. The data-set was scaled using the `StandardScaler' method from sklearn. 70\% of the data was randomly partitioned for training and the rest 30\% was used for testing. All linear methods do poorly on the this data-set, with Lasso doing exceptionally worse, (the same reasoning as 'House pricing' can be applied here). The non-linear Decision Tree regressor worked very well and was the only one that could capture the dynamics of the data-set.
+
+\subsection*{Wind energy prediction}
+
+\begin{table}[!hptb]
+\centering
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Info} & \textbf{Lin. Reg.} & \textbf{RANSAC} & \textbf{Lasso} & \textbf{Ridge} & \textbf{DT Reg.}  \\\hline
+\textbf{runtime} & 0.008 & 0.4 & 0.004 &	0.002 & 0.128 \\
+\textbf{mse on test} & 0.97 & 0.99 &	1 & 0.97 & 1.10 \\
+\textbf{r2 on test} & 0.02 & 0.015 & -4.01E-07 & 0.026 & -0.102 \\
+\textbf{mse on train} & 0.97 & 0.98 & 0.99 &	0.97 & 0.70 \\
+\textbf{r2 on train} & 0.022 & 0.011 & -7.40E-08 & 0.022 & 0.3 \\\hline
+\end{tabular}
+\caption{Result on `Wind Energy' data-set with `standard' configuration of 5 regressors.}
+\end{table}
+
+Table~3 shows the runtime (in seconds), mse and r2 scores on testing and training data for `Wind energy' data-set using the `standard' configuration on 5 regressors. The data-set was scaled using the `StandardScaler' method from sklearn. 70\% of the data was randomly partitioned for training and the rest 30\% was used for testing. All methods do poorly on the this data-set.  The non-linear Decision Tree regressor is clearly overfitting having a much better performance on training data-set in contrast to that on the testing dataset. However, it makes sense because the default value of 25 on \texttt{min\_samples\_split} on a data-set with 67K  instances is prone to overfitting.
+
+\section*{A more comprehensive evaluation of regressors}
+
+In this section we would discuss and show changes in performance when certain parameters were tweaked. We are using 'House pricing', 'Solar energy' and 'Wind energy' data-set.
+
+\begin{itemize}
+\item Linear Regression : This method does not have any parameter that could have influenced the performance.
+\item RANSAC Regression : 
+\begin{itemize}
+\item \texttt{min\_samples\_ransac} : The following table shows the change in results at 2 different values of \texttt{min\_samples\_ransac} on 'House pricing' data-set
+\begin{table}[!hptb]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{values $\to$} & \textbf{0.5} & \textbf{0.9}  \\\hline
+\textbf{runtime} & 0.041 & 0.048 \\
+\textbf{mse on test} & 0.24 & 0.24 \\
+\textbf{r2 on test} & 0.78 & 0.77 \\
+\textbf{mse on train} & 0.33 & 0.29 \\
+\textbf{r2 on train} & 0.65 & 0.69 \\\hline
+\end{tabular}
+\caption{Change in RANSAC result with \texttt{min\_samples\_ransac}}
+\end{table}
+The results in Table~4 are expected, increasing \texttt{min\_samples\_ransac} does not effect performance on the testing data (very slightly) but improves performance on training data.
+\end{itemize}
+\item Lasso
+\begin{itemize}
+\item \texttt{lambda\_l1} : The following table shows the change in results at 3 different values of \texttt{lambda\_l1} on 'House pricing' data-set.
+\begin{table}[!hptb]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{values $\to$} & \textbf{1} & \textbf{0.5} & \textbf{0.1}  \\\hline
+\textbf{runtime} & 0.0006	 & 0.0008 & 0.002 \\
+\textbf{mse on test} & 0.24 & 0.8 & 0.34 \\
+\textbf{r2 on test} & -0.002 & 0.26 & 0.68 \\
+\textbf{mse on train} & 1.09 & 0.67 & 0.35 \\
+\textbf{r2 on train} & -0.00045 & 0.3 & 0.64 \\\hline
+\end{tabular}
+\caption{Change in Lasso result with \texttt{lambda\_l1}}
+\end{table}
+The results in Table~5 support my earlier hypothesis that having lower number of features affects Lasso as decreasing \texttt{lambda\_l1} greatly improves performance.
+\end{itemize}
+\item Ridge : No significant changes were noticed by changing \texttt{lambda\_l2}.
+\item Decision Tree Non Linear Regression
+\begin{itemize}
+\item \texttt{min\_samples\_split}  : The following table shows the change in results at 3 different values of \texttt{min\_samples\_split}  on 'Solar energy' data-set. Changes on 'Wind energy' data-set has also been discussed.
+\begin{table}[!hptb]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{values $\to$} & \textbf{25} & \textbf{100} & \textbf{1000}  \\\hline
+\textbf{runtime} &  0.094 & 0.078 & 0.05 \\
+\textbf{mse on test} & 0.47 & 0.41 & 0.4 \\
+\textbf{r2 on test} & 0.53 & 0.59 & 0.61 \\
+\textbf{mse on train} & 0.31 & 0.36 & 0.4 \\
+\textbf{r2 on train} & 0.68 & 0.63 & 0.60 \\\hline
+\end{tabular}
+\caption{Change in Decision Tree regression result with \texttt{min\_samples\_split}}
+\end{table}
+The results in Table~6 is expected. As the Decision Tree stops earlier, performance on test data improves, while that on training data degrades. Application on 'Wind Energy' showed similar behavior, however, the performance did not had any dramatic improvement.
+\end{itemize}
+\end{itemize}
+\end{document}
