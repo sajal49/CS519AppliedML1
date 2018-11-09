@@ -1,0 +1,64 @@
+################################################################################
+README
+try ‘python3 main.py —help’ to get a detailed explanation of all parameters (also given below) 
+################################################################################
+
+usage: main.py [-h] [-seed SEED] [-n_jobs N_JOBS] [-n_cluster N_CLUSTER]
+               -data_to_analyze DATA_TO_ANALYZE [-data_path DATA_PATH]
+               [-data_name DATA_NAME] [-dist_metric DIST_METRIC]
+               [-linkage_method LINKAGE_METHOD] [-eps_dbscan EPS_DBSCAN]
+               [-min_pts_dbscan MIN_PTS_DBSCAN] [-no_y [NO_Y]]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -seed SEED            int; Random seed. (Default: 1)
+  -n_jobs N_JOBS        int; Number of parallel threads to be used. (Default:
+                        4)
+  -n_cluster N_CLUSTER  int; Number of clusters. If no number is supplied,
+                        Elbow method is usedto detect the number of clusters.
+                        (Default: auto)
+  -data_to_analyze DATA_TO_ANALYZE
+                        int; Proj 5 evaluates on 2 datasets, 1) Iris and 2)
+                        Fault steelplates. If a third data set has to be
+                        evaluated please set this option to 3 and provide a
+                        -data_path, -data_name.[*]
+  -data_path DATA_PATH  Path to the data file; valid if -data_to_analyze is
+                        set to 2 or 3. The last column will be treated as
+                        response and the rest as attributes,unless -no_y is
+                        used [*]
+  -data_name DATA_NAME  Name of the data-set being evaluated; valid if
+                        -data_to_analyze is setto 3
+  -dist_metric DIST_METRIC
+                        string; Distance metric to be used.
+                        (Default:euclidean). Options : {“euclidean”,
+                        “manhattan”, “cosine”}
+  -linkage_method LINKAGE_METHOD
+                        string; Method for calculating the distance between
+                        the newly formed clusters in Hierarchical clustering.
+                        (Default:ward).Options : {“ward”, “complete”,
+                        “average”, “single”}
+  -eps_dbscan EPS_DBSCAN
+                        float; The maximum distance between two samples for
+                        them to be considered as in the same neighborhood for
+                        DBSCAN (Default:auto).
+  -min_pts_dbscan MIN_PTS_DBSCAN
+                        int; The number of samples (or total weight) in a
+                        neighborhood for a point to be considered as a core
+                        point. This includes the point itself (Default:auto).
+  -no_y [NO_Y]          bool; Should the last column of data be treated as y?
+
+
+
+################################################################################
+
+Some examples:
+
+python3 main.py -data_to_analyze=1 ; evaluates the ‘Iris’ data-set on standard setting.
+
+python3 main.py -data_to_analyze=2 -data_path='Data/faults.csv' ; evaluates the ‘Faulty steel plates’ data-set on standard setting.
+
+python3 main.py -data_to_analyze=1 -linkage_method='complete' ; evaluates the ‘Iris’ data-set with complete linkage (affect Agglomerative clustering)
+
+python3 main.py -data_to_analyze=1 -linkage_method='complete' -no_y ; evaluates the ‘Iris’ data-set with complete linkage (affect Agglomerative clustering), also does not utilize Y as ground truth, hence no chi-square.
+
+################################################################################
