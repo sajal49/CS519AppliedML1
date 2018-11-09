@@ -1,0 +1,44 @@
+################################################################################
+README
+try ‘python3 main.py —help’ to get a detailed explanation of all parameters (also given below) 
+################################################################################
+
+usage: main.py [-h] [-seed SEED] [-n_jobs N_JOBS]
+               [-var_explained VAR_EXPLAINED] -data_to_analyze DATA_TO_ANALYZE
+               [-data_path DATA_PATH] [-data_name DATA_NAME]
+               [-gamme_kernel_pca GAMME_KERNEL_PCA]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -seed SEED            int; Random seed. (Default: 1)
+  -n_jobs N_JOBS        int; Number of parallel threads to be used. (Default: 4)
+  -var_explained VAR_EXPLAINED
+                        float; Cutoff for variance explained. Will be used to
+                        determine n_components. (Default: 0.9)
+  -data_to_analyze DATA_TO_ANALYZE
+                        int; Proj 6 evaluates on 2 datasets, 1) Iris and 2)
+                        DigitsIf a third data set has to be evaluated please
+                        set this option to 3 and provide a -data_path,
+                        -data_name.[*] NOTE : This implementation only supports
+                        data-sets withcategorical Y.
+  -data_path DATA_PATH  Path to the data file; valid if -data_to_analyze is
+                        set to 3. The last column will be treated as response
+                        and the rest as attributes [*]
+  -data_name DATA_NAME  Name of the data-set being evaluated; valid if
+                        -data_to_analyze is setto 3
+  -gamme_kernel_pca GAMME_KERNEL_PCA
+                        float; Gamma for RBF Kernel PCA. (Default: 1 / n_features)
+
+
+################################################################################
+
+Some examples:
+
+python3 main.py -data_to_analyze=1 ; evaluates the ‘Iris’ data-set on standard setting.
+
+python3 main.py -data_to_analyze=2 ; evaluates the ‘Digits’ data-set on standard setting.
+
+python3 main.py -data_to_analyze=1 -var_explained=0.98 ; evaluates the ‘Iris’ data-set with 
+var_explained requirement set to 0.98. This will trigger, more number of components (dimension being chosen).
+
+################################################################################
