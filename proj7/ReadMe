@@ -41,6 +41,8 @@ Some examples:
 
 python3 main.py ; evaluates the MNIST data-set on standard setting.
 
-python3 main.py -batch_size=64 -c1_kernel_size=5 -c1_op_channel=32 -c2_kernel_size=5 -c2_op_channel=64 -p2_pool_size=2 -figname=‘config-4’ ; evaluates the MNIST data set on an alternate setting. The figure generated would have the suffix ‘config-4’
+python3 main.py -batch_size=64 -c1_kernel_size=5 -c1_op_channel=32 -c2_kernel_size=5 
+-c2_op_channel=64 -p2_pool_size=2 -figname=‘config-4’ ; evaluates the MNIST data set on an alternate setting. 
+The figure generated would have the suffix ‘config-4’
 
 ################################################################################
