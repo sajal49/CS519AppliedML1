@@ -1,0 +1,56 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 ################################################################################\
+README\
+try \'91python3 main.py \'97help\'92 to get a detailed explanation of all parameters (also given below) \
+################################################################################\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 usage: main.py [-h] [-seed SEED] [-batch_size BATCH_SIZE] [-epochs EPOCHS]\
+               [-learning_rate LEARNING_RATE] [-c1_kernel_size C1_KERNEL_SIZE]\
+               [-c2_kernel_size C2_KERNEL_SIZE] [-c1_op_channel C1_OP_CHANNEL]\
+               [-c2_op_channel C2_OP_CHANNEL] [-p1_pool_size P1_POOL_SIZE]\
+               [-p2_pool_size P2_POOL_SIZE] [-figname FIGNAME]\
+\
+optional arguments:\
+  -h, --help            show this help message and exit\
+  -seed SEED            int; Random seed. (Default: 1)\
+  -batch_size BATCH_SIZE\
+                        int; Batch size for CNN (Default: 100)\
+  -epochs EPOCHS        int; Number of iterations / epochs to consider\
+                        (Default: 10)\
+  -learning_rate LEARNING_RATE\
+                        float; Learning rate (Default: 1e-4).\
+  -c1_kernel_size C1_KERNEL_SIZE\
+                        int; Kernel size for 1st conv layer (Default: 3).\
+  -c2_kernel_size C2_KERNEL_SIZE\
+                        int; Kernel size for 2nd conv layer (Default: 3).\
+  -c1_op_channel C1_OP_CHANNEL\
+                        int; Number of open channels for 1st conv layer\
+                        (Default: 4).\
+  -c2_op_channel C2_OP_CHANNEL\
+                        int; Number of open channels for 2nd conv layer\
+                        (Default: 2).\
+  -p1_pool_size P1_POOL_SIZE\
+                        int; Pool size for 1st pool layer (Default: 2).\
+  -p2_pool_size P2_POOL_SIZE\
+                        int; Pool size for 2nd pool layer (Default: 4).\
+  -figname FIGNAME      str; Figure name for loss ~ epoch figures,\
+                        representing different configurations. Not required.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 ################################################################################\
+\
+Some examples:\
+\
+python3 main.py ; evaluates the MNIST data-set on standard setting.\
+\
+python3 main.py -batch_size=64 -c1_kernel_size=5 -c1_op_channel=32 -c2_kernel_size=5 -c2_op_channel=64 -p2_pool_size=2 -figname=\'91config-4\'92 ; evaluates the MNIST data set on an alternate setting. The figure generated would have the suffix \'91config-4\'92\
+\
+################################################################################\
+}
