@@ -1,0 +1,19 @@
+######################################################################
+
+To run the pipeline, the following data file is required:
+
+http://cf.10xgenomics.com/samples/cell-exp/1.3.0/1M_neurons/1M_neurons_neuron20k.h5
+
+Create the following folders in the working directory:
+
+Data/20KMouseNeurons10X/Filtered/
+Data/20KMouseNeurons10X/Raw/ — Place the downloaded file here
+figures/
+
+Then to run the code type python3 main.py on terminal
+
+The code takes 3 hours to fully run on a 8GB RAM, 2.8 Ghz, Intel Core i7 4 threads MacBook pro
+
+May take more or less depending on the machine.
+
+#########################################################################
