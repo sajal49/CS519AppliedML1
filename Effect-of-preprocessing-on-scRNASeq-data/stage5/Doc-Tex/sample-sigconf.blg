@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: sample-sigconf.aux
+The style file: ACM-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: sample-bibliography.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--no number and no volume in eraslan2018single
+Warning--page numbers missing in both pages and numpages fields in lun2016step
+Warning--no number and no volume in moon2017manifold
+Warning--page numbers missing in both pages and numpages fields in moon2017manifold
+Warning--no number and no volume in van2018recovering
+Warning--page numbers missing in both pages and numpages fields in van2018recovering
+Warning--no number and no volume in wang2017vasc
+You've used 7 entries,
+            5719 wiz_defined-function locations,
+            1487 strings with 18306 characters,
+and the built_in function-call counts, 9896 in all, are:
+= -- 1365
+> -- 570
+< -- 0
++ -- 199
+- -- 192
+* -- 822
+:= -- 1094
+add.period$ -- 35
+call.type$ -- 7
+change.case$ -- 73
+chr.to.int$ -- 7
+cite$ -- 14
+duplicate$ -- 667
+empty$ -- 466
+format.name$ -- 220
+if$ -- 2437
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 28
+newline$ -- 96
+num.names$ -- 56
+pop$ -- 275
+preamble$ -- 1
+purify$ -- 136
+quote$ -- 0
+skip$ -- 223
+stack$ -- 0
+substring$ -- 523
+swap$ -- 75
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 112
+warning$ -- 7
+while$ -- 38
+width$ -- 0
+write$ -- 155
+(There were 7 warnings)

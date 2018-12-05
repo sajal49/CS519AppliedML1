@@ -1,0 +1,143 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{7}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{Buettner, Natarajan, Casale, Proserpio,
+  Scialdone, Theis, Teichmann, Marioni, and Stegle}{Buettner
+  et~al\mbox{.}}{2015}]%
+        {buettner2015computational}
+\bibfield{author}{\bibinfo{person}{Florian Buettner}, \bibinfo{person}{Kedar~N
+  Natarajan}, \bibinfo{person}{F~Paolo Casale}, \bibinfo{person}{Valentina
+  Proserpio}, \bibinfo{person}{Antonio Scialdone}, \bibinfo{person}{Fabian~J
+  Theis}, \bibinfo{person}{Sarah~A Teichmann}, \bibinfo{person}{John~C
+  Marioni}, {and} \bibinfo{person}{Oliver Stegle}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Computational analysis of cell-to-cell
+  heterogeneity in single-cell RNA-sequencing data reveals hidden
+  subpopulations of cells}.
+\newblock \bibinfo{journal}{\emph{Nature biotechnology}} \bibinfo{volume}{33},
+  \bibinfo{number}{2} (\bibinfo{year}{2015}), \bibinfo{pages}{155}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Carter, Bihannic, Rosencrance, Hadley, Tong,
+  Phoenix, Natarajan, Easton, Northcott, and Gawad}{Carter
+  et~al\mbox{.}}{2018}]%
+        {carter2018single}
+\bibfield{author}{\bibinfo{person}{Robert~A Carter}, \bibinfo{person}{Laure
+  Bihannic}, \bibinfo{person}{Celeste Rosencrance}, \bibinfo{person}{Jennifer~L
+  Hadley}, \bibinfo{person}{Yiai Tong}, \bibinfo{person}{Timothy~N Phoenix},
+  \bibinfo{person}{Sivaraman Natarajan}, \bibinfo{person}{John Easton},
+  \bibinfo{person}{Paul~A Northcott}, {and} \bibinfo{person}{Charles Gawad}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{A Single-Cell Transcriptional Atlas of the
+  Developing Murine Cerebellum}.
+\newblock \bibinfo{journal}{\emph{Current Biology}} \bibinfo{volume}{28},
+  \bibinfo{number}{18} (\bibinfo{year}{2018}), \bibinfo{pages}{2910--2920}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Eraslan, Simon, Mircea, Mueller, and
+  Theis}{Eraslan et~al\mbox{.}}{2018}]%
+        {eraslan2018single}
+\bibfield{author}{\bibinfo{person}{G{\"o}kcen Eraslan},
+  \bibinfo{person}{Lukas~M Simon}, \bibinfo{person}{Maria Mircea},
+  \bibinfo{person}{Nikola~S Mueller}, {and} \bibinfo{person}{Fabian~J Theis}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Single cell RNA-seq denoising using a deep count
+  autoencoder}.
+\newblock \bibinfo{journal}{\emph{bioRxiv}} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{300681}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lun, McCarthy, and Marioni}{Lun
+  et~al\mbox{.}}{2016}]%
+        {lun2016step}
+\bibfield{author}{\bibinfo{person}{Aaron~TL Lun}, \bibinfo{person}{Davis~J
+  McCarthy}, {and} \bibinfo{person}{John~C Marioni}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{A step-by-step workflow for low-level analysis of
+  single-cell RNA-seq data with Bioconductor}.
+\newblock \bibinfo{journal}{\emph{F1000Research}}  \bibinfo{volume}{5}
+  (\bibinfo{year}{2016}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Moon, Stanley, Burkhardt, van Dijk, Wolf, and
+  Krishnaswamy}{Moon et~al\mbox{.}}{2017}]%
+        {moon2017manifold}
+\bibfield{author}{\bibinfo{person}{Kevin~R Moon}, \bibinfo{person}{Jay
+  Stanley}, \bibinfo{person}{Daniel Burkhardt}, \bibinfo{person}{David van
+  Dijk}, \bibinfo{person}{Guy Wolf}, {and} \bibinfo{person}{Smita
+  Krishnaswamy}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Manifold learning-based methods for analyzing
+  single-cell RNA-sequencing data}.
+\newblock \bibinfo{journal}{\emph{Current Opinion in Systems Biology}}
+  (\bibinfo{year}{2017}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Van~Dijk, Sharma, Nainys, Yim, Kathail, Carr,
+  Burdziak, Moon, Chaffer, Pattabiraman, et~al\mbox{.}}{Van~Dijk
+  et~al\mbox{.}}{2018}]%
+        {van2018recovering}
+\bibfield{author}{\bibinfo{person}{David Van~Dijk}, \bibinfo{person}{Roshan
+  Sharma}, \bibinfo{person}{Juoas Nainys}, \bibinfo{person}{Kristina Yim},
+  \bibinfo{person}{Pooja Kathail}, \bibinfo{person}{Ambrose Carr},
+  \bibinfo{person}{Cassandra Burdziak}, \bibinfo{person}{Kevin~R Moon},
+  \bibinfo{person}{Christine~L Chaffer}, \bibinfo{person}{Diwakar
+  Pattabiraman}, {et~al\mbox{.}}} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Recovering Gene Interactions from Single-Cell Data
+  Using Data Diffusion}.
+\newblock \bibinfo{journal}{\emph{Cell}} (\bibinfo{year}{2018}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Wang and Gu}{Wang and Gu}{2017}]%
+        {wang2017vasc}
+\bibfield{author}{\bibinfo{person}{Dongfang Wang} {and} \bibinfo{person}{Jin
+  Gu}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{VASC: dimension reduction and visualization of
+  single cell RNA sequencing data by deep variational autoencoder}.
+\newblock \bibinfo{journal}{\emph{bioRxiv}} (\bibinfo{year}{2017}),
+  \bibinfo{pages}{199315}.
+\newblock
+
+
+\end{thebibliography}
